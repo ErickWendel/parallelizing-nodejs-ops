@@ -1,0 +1,6 @@
+Cluster Child Process
+
+Main Process
+    - Read paged data from MongoDB
+    - Send it to Child Process Cluster
+        - Save in the SQLite
