@@ -8,7 +8,7 @@ process.on('message', (items) => {
     for (const item of items) {
         db.students.insert(item)
             .then(() => {
-                process.send({ status: 'done' });
+                process.send('item-done');
             })
             .catch((error) => {
                 console.error(error);

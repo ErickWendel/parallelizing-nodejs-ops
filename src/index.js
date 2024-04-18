@@ -40,18 +40,16 @@ const cp = initialize(
         async onMessage(message) {
             progress.increment()
 
-            ++totalProcessed
+            if (++totalProcessed !== total) return
+            // console.log(`all ${amountToBeProcessed} processed! Exiting...`)
+            progress.stop()
+            cp.killAll()
 
-            if (totalProcessed === total) {
-                // console.log(`all ${amountToBeProcessed} processed! Exiting...`)
-                progress.stop()
-                cp.killAll()
+            const insertedOnSQLite = await postgresDB.students.count()
+            console.log(`total on MongoDB ${total} and total on PostGres ${insertedOnSQLite}`)
+            console.log(`are the same? ${total === insertedOnSQLite ? 'yes' : 'no'}`)
+            process.exit()
 
-                const insertedOnSQLite = await postgresDB.students.count()
-                console.log(`total on MongoDB ${total} and total on PostGres ${insertedOnSQLite}`)
-                console.log(`are the same? ${total === insertedOnSQLite ? 'yes' : 'no'}`)
-                process.exit()
-            }
         }
     }
 )

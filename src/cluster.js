@@ -25,7 +25,10 @@ function initializeCluster({ backgroundTaskFile, clusterSize, onMessage }) {
             process.exit(1)
         })
 
-        child.on('message', onMessage)
+        child.on('message', (message) => {
+            if (message !== 'item-done') return
+            onMessage(message)
+        })
 
         processes.set(child.pid, child)
     }
@@ -39,21 +42,9 @@ function initializeCluster({ backgroundTaskFile, clusterSize, onMessage }) {
 
 }
 
-export function initialize({ backgroundTaskFile, clusterSize, amountToBeProcessed, onDone, onMessage }) {
-    let totalProcessed = 0
-    const _onMessage = (message) => {
-        onMessage(message)
+export function initialize({ backgroundTaskFile, clusterSize, onMessage }) {
 
-        // ++totalProcessed
-        // if (totalProcessed === amountToBeProcessed) {
-        //     // console.log(`all ${amountToBeProcessed} processed! Exiting...`)
-        //     onDone(totalProcessed)
-        //     // killAll()
-        // }
-    }
-
-
-    const { getProcess, killAll } = initializeCluster({ backgroundTaskFile, clusterSize, onMessage: _onMessage })
+    const { getProcess, killAll } = initializeCluster({ backgroundTaskFile, clusterSize, onMessage })
     // console.log(`starting with ${clusterSize} processes`)
 
     function sendToChild(message) {

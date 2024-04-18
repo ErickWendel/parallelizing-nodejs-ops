@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { getMongoConnection, getPostgresConnection } from './db.js'
 
 async function seedMongoDB(amount) {
-    const { students, client } = getMongoConnection()
+    const { students, client } = await getMongoConnection()
     console.log('deleting all students')
     await students.deleteMany({})
     let person = []
@@ -31,5 +31,5 @@ async function seedPostegres() {
     console.log('table students created with success')
     await db.client.end()
 }
-// await seedMongoDB(1_000_000)
+await seedMongoDB(1_000_000)
 await seedPostegres()
