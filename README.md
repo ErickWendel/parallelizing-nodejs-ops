@@ -2,8 +2,6 @@
 
 Example of [how Migrate 1M items from MongoDB to Postgres in just a few minutes](https://youtu.be/EnK8-x8L9TY) using Node.js child process
 
-Hi this is the repo containing code examples and challenges of my video on [Cypress for begginers - Creating e2e tests on frontend apps](https://bit.ly/mini-curso-cypress). 
-
 **First leave your star in the repo 🌟**
 ![Aumentando em 999x a velocidade de processamento de dados com Node](https://github.com/ErickWendel/parallelizing-nodejs-ops/assets/8060102/6974de93-7848-477a-9198-9d99dedc18f3)
 
