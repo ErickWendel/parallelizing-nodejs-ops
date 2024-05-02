@@ -1,5 +1,6 @@
 import { MongoClient } from 'mongodb';
 import pg from 'pg';
+import format from 'pg-format';
 const { Client } = pg;
 // Connection URL for MongoDB
 
@@ -46,6 +47,15 @@ async function getPostgresConnection() {
                 const values = [name, email, age, registeredAt];
 
                 await client.query(query, values);
+
+            },
+            async insertMany(persons) {
+                const query = format(
+                    'INSERT INTO students (name, email, age, registered_at) VALUES %L',
+                    persons.map((person) => [person.name, person.email, person.age, person.registered_at])
+                );
+
+                await client.query(query);
 
             },
             async list(limit = 100) {
