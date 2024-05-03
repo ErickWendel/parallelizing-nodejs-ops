@@ -1,10 +1,12 @@
 import { initialize } from "./cluster.js"
 import { getMongoConnection, getPostgresConnection } from './db.js'
 import cliProgress from 'cli-progress'
+import os from 'os';
+
 const mongoDB = await getMongoConnection()
 const postgresDB = await getPostgresConnection()
 // const ITEMS_PER_PAGE = 4000
-const CLUSTER_SIZE = 8
+const CLUSTER_SIZE = os.cpus().length
 const TASK_FILE = new URL('./background-task.js', import.meta.url).pathname
 const DATA_STREAMING_FILE = new URL('./data-streaming.js', import.meta.url).pathname
 
