@@ -26,7 +26,6 @@ function initializeCluster({ backgroundTaskFile, clusterSize, onMessage }) {
         })
 
         child.on('message', (message) => {
-            if (message !== 'item-done') return
             onMessage(message)
         })
 
